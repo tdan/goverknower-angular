@@ -1,10 +1,10 @@
-import { inject, Injectable } from "@angular/core";
-import * as uuid from "uuid";
-import { GoverknowerAPIService } from "../services/goverknower-api.service";
-import { Conversation } from "../models/conversation.model";
+import { inject, Injectable } from '@angular/core';
+import * as uuid from 'uuid';
+import { GoverknowerAPIService } from '../services/goverknower-api.service';
+import { Conversation } from '../models/conversation.model';
 
 @Injectable({
-    providedIn: "root",
+    providedIn: 'root',
 })
 export class ConversationController {
     private api = inject(GoverknowerAPIService);
@@ -16,12 +16,11 @@ export class ConversationController {
     }
 
     public sendMessage(message: string) {
-        this.conversation.addMessage(message, "user");
+        this.conversation.addMessage(message, 'user');
 
-        this.api.sendMessage(message).subscribe(data => {
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            this.conversation.addMessage(aiResponse, "ai");
-        })
+        this.api.sendMessage(message)?.subscribe((response) => {
+            this.conversation.addMessage(response, 'ai');
+        });
     }
 
     public getConversation(): Conversation {

@@ -3,7 +3,7 @@ import { MessageBoxComponent } from './core/components/message-box.component';
 
 export const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: MessageBoxComponent,
     },
 ];
