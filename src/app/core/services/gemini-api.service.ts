@@ -1,0 +1,48 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { env } from "../../../environment/environment";
+import { GoverknowerAPIService } from "./goverknower-api.service";
+
+@Injectable({
+    providedIn: "root",
+})
+export class GeminiAPIService implements GoverknowerAPIService {
+    private http = inject(HttpClient);
+
+    public sendMessage(message: string): Observable<any> {
+
+        const header: HttpHeaders = new HttpHeaders(
+            {
+                "Content-Type": "application/json",
+            }
+        );
+
+        const body: string = this.prepareContent(message);
+
+        const response: Observable<any> = this.http.post(
+            env.GEMINI_URL + env.GEMINI_API_KEY,
+            body,
+            {
+                headers: header,
+                responseType: "json",
+            }
+        )
+
+        return response;
+    }
+
+    private prepareContent(message: string): string {
+        let content: string = `{
+            "contents": [
+                {
+                    "parts": [{
+                        "text":"` + message + `"
+                    }]
+                }
+            ]
+        }`;
+
+        return content;
+    }
+}

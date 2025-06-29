@@ -1,0 +1,6 @@
+<div id="message-box" class="min-h-screen flex justify-center mt-5px">
+    <div class="">
+        <textarea class="textarea max-w-full" placeholder="Ask your question..." #message
+            (keydown.enter)="$event.preventDefault();sendMessage(message.value)"></textarea>
+    </div>
+</div>
