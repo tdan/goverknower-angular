@@ -8,5 +8,5 @@ import { BackendAPIService } from './backend-api.service';
     useClass: BackendAPIService,
 })
 export abstract class GoverknowerAPIService {
-    public abstract sendMessage(message: string): Observable<string> | null;
+    public abstract sendMessage(message: string): Observable<string> | undefined;
 }

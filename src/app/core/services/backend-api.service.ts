@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { GoverknowerAPIService } from './goverknower-api.service';
-import { Observable } from 'rxjs';
+import { Observable, pipe, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { env } from '../../../environment/environment';
 
@@ -10,8 +10,8 @@ import { env } from '../../../environment/environment';
 export class BackendAPIService implements GoverknowerAPIService {
     private http = inject(HttpClient);
 
-    public sendMessage(message: string): Observable<string> | null {
-        let response: Observable<any> | null = null;
+    public sendMessage(message: string): Observable<string> | undefined {
+        let response: Observable<any> | undefined = undefined;
 
         try {
             response = this.http.get(env.API_URL + message);
@@ -19,6 +19,10 @@ export class BackendAPIService implements GoverknowerAPIService {
             console.log(error);
         }
 
-        return response;
+        return response?.pipe(
+            map((data) => {
+                return data.response;
+            })
+        );
     }
 }

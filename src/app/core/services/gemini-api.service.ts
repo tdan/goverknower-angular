@@ -10,7 +10,7 @@ import { GoverknowerAPIService } from './goverknower-api.service';
 export class GeminiAPIService implements GoverknowerAPIService {
     private http = inject(HttpClient);
 
-    public sendMessage(message: string): Observable<string> | null {
+    public sendMessage(message: string): Observable<string> | undefined {
         const header: HttpHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
         });
